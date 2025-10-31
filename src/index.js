@@ -57,3 +57,13 @@ app.get('/health', (req, res) => {
         uptime: process.uptime()
     });
 });
+app.get('/task/:id', (req, res) => {
+    const taskId = parseInt(req.params.id);
+    const task = tasks.find(t => t.id === taskId);
+    
+    if (!task) {
+        return res.status(404).json({ error: "Task not found" });
+    }
+    
+    res.json(task);
+});
