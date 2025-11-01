@@ -39,16 +39,15 @@ const tasks = [
     }
 ];
 
-// GET /tasks
 router.get('/', (req, res) => {
     res.json(tasks);
 });
 
-// GET /task/:id
+// GET /tasks/:id - Get task by ID (WITH ENHANCED ERROR HANDLING)
 router.get('/:id', (req, res) => {
     const taskId = parseInt(req.params.id);
     
-    // Check if ID is valid number
+    // NEW: Check if ID is valid number
     if (isNaN(taskId)) {
         return res.status(400).json({ error: "Invalid ID format" });
     }
