@@ -1,0 +1,48 @@
+API Response Documentation for Task 6:
+
+GET /tasks/1
+Status: 200 OK
+Response:
+{
+  "id": 1,
+  "title": "Learn Node.js",
+  "completed": false,
+  "priority": "high",
+  "createdAt": "2024-01-15T00:00:00.000Z"
+}
+
+GET /tasks/999
+Status: 404 Not Found
+Response:
+{
+  "error": "Task not found"
+}
+
+GET /tasks/abc
+Status: 400 Bad Request
+Response:
+{
+  "error": "Invalid ID format"
+}
+
+GET /tasks/1a2b
+Status: 400 Bad Request
+Response:
+{
+  "error": "Invalid ID format"
+}
+
+GET /tasks/1.5
+Status: 400 Bad Request
+Response:
+{
+  "error": "Invalid ID format"
+}
+
+GET /health
+Status: 200 OK
+Response:
+{
+  "status": "healthy",
+  "uptime": 123.45
+}
