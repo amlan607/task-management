@@ -1,10 +1,15 @@
 # Task Management API – CSE 362 Lab 01
 
 **Amlan Dutta Rahul**
+
 **Roll: 360**
+
 **Jahangirnagar University**
+
 **Department of Computer Science and Engineering**
+
 **3rd Year, 2nd Semester 2024**
+
 **CSE 362 – Web Programming II LAB**
 
 **Overview**
@@ -102,10 +107,4 @@ task-management/
 
 ---
 
-## ✨ Author
 
-**Amlan Dutta Rahul**
-Roll: 360
-Department of Computer Science and Engineering
-Jahangirnagar University
-3rd Year, 2nd Semester (2024)
