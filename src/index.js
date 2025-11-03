@@ -23,4 +23,4 @@ app.use('/tasks', tasksRouter);
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
-});
+});clearImmediate
