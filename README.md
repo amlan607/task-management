@@ -32,7 +32,7 @@ This project is part of **Assignment 7**, which requires creating a README conta
 Clone the repository (or download ZIP):
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/amlan607/task-management.git
 cd task-management
 ```
 
