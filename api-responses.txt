@@ -1,48 +1,47 @@
-API Response Documentation for Task 6:
+========================================
+Assignment 3: GET /tasks/:id Route Test
+========================================
 
-GET /tasks/1
+✅ Test Case 1: Valid Task ID
+----------------------------------------
+Request:
+GET http://localhost:3000/tasks/3
+
+Expected Response:
 Status: 200 OK
-Response:
+Body:
 {
-  "id": 1,
-  "title": "Learn Node.js",
+  "id": 3,
+  "title": "Test API with Postman",
   "completed": false,
-  "priority": "high",
-  "createdAt": "2024-01-15T00:00:00.000Z"
+  "priority": "low",
+  "createdAt": "2025-11-14T00:00:00.000Z"
 }
 
-GET /tasks/999
+----------------------------------------
+
+❌ Test Case 2: Invalid Task ID (Not Found)
+----------------------------------------
+Request:
+GET http://localhost:3000/tasks/99
+
+Expected Response:
 Status: 404 Not Found
-Response:
+Body:
 {
   "error": "Task not found"
 }
 
-GET /tasks/abc
+----------------------------------------
+
+🧪 Additional Test Case (Optional)
+----------------------------------------
+Request:
+GET http://localhost:3000/tasks/abc
+
+Expected Response (Handled in Assignment 6):
 Status: 400 Bad Request
-Response:
+Body:
 {
   "error": "Invalid ID format"
-}
-
-GET /tasks/1a2b
-Status: 400 Bad Request
-Response:
-{
-  "error": "Invalid ID format"
-}
-
-GET /tasks/1.5
-Status: 400 Bad Request
-Response:
-{
-  "error": "Invalid ID format"
-}
-
-GET /health
-Status: 200 OK
-Response:
-{
-  "status": "healthy",
-  "uptime": 123.45
 }
