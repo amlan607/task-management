@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-// Sample 5 tasks
+// 5 Sample Tasks
 const tasks = [
   {
     id: 1,
@@ -40,15 +40,14 @@ const tasks = [
   },
 ];
 
-// ✅ GET /tasks → return all tasks
+// ✅ GET /tasks → Return all tasks
 router.get("/", (req, res) => {
   res.json(tasks);
 });
 
-// ✅ GET /tasks/:id → return a single task by ID or 404 if not found
+// ✅ GET /tasks/:id → Return task by ID or 404 if not found
 router.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
-
   const task = tasks.find((t) => t.id === id);
 
   if (!task) {
