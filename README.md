@@ -1,40 +1,40 @@
-# Task Management API – CSE 362 Lab 01
 
-**Amlan Dutta Rahul**
 
-**Roll: 360**
+````markdown
+# Task Management API – CSE 362 Lab 02
 
-**Jahangirnagar University**
-
-**Department of Computer Science and Engineering**
-
-**3rd Year, 2nd Semester 2024**
-
+**Amlan Dutta Rahul**  
+**Roll: 360**  
+**Jahangirnagar University**  
+**Department of Computer Science and Engineering**  
+**3rd Year, 2nd Semester 2025**  
 **CSE 362 – Web Programming II LAB**
-
-**Overview**
-
-A simple REST API built with Node.js and Express for managing tasks.
-This project is part of **Assignment 7**, which requires creating a README containing project setup instructions and listing all available API endpoints.
 
 ---
 
-##  Requirements
+## Overview
 
-* Node.js (v18+ recommended)
-* npm (comes with Node)
+A simple REST API built with Node.js and Express for managing tasks.  
+This project demonstrates **Assignment 5** requirements, focusing on **error handling** for task retrieval and API endpoint responses.
+
+---
+
+## Requirements
+
+* Node.js (v18+ recommended)  
+* npm (comes with Node)  
 * Git (optional, for cloning)
 
 ---
 
-##  Setup Instructions
+## Setup Instructions
 
 Clone the repository (or download ZIP):
 
 ```bash
 git clone https://github.com/amlan607/task-management.git
 cd task-management
-```
+````
 
 Install dependencies:
 
@@ -56,33 +56,41 @@ Server running at http://localhost:3000
 
 ---
 
-##  Available API Endpoints
+## Available API Endpoints
 
-| Method | Endpoint    | Description                          |
-| ------ | ----------- | ------------------------------------ |
-| GET    | `/`         | Returns welcome message              |
-| GET    | `/health`   | Returns API health status and uptime |
-| GET    | `/tasks`    | Returns list of all tasks            |
-| GET    | `/task/:id` | Returns a single task by ID          |
-| GET    | `/task/abc` | Returns `400` (invalid ID format)    |
-| GET    | `/task/999` | Returns `404` (task not found)       |
+| Method | Endpoint        | Description                          |
+| ------ | --------------- | ------------------------------------ |
+| GET    | `/`             | Returns welcome message              |
+| GET    | `/health`       | Returns API health status and uptime |
+| GET    | `/tasks`        | Returns list of all tasks            |
+| GET    | `/tasks/:id`    | Returns a single task by ID          |
+| GET    | `/tasks/abc`    | Returns `400` (invalid ID format)    |
+| GET    | `/tasks/-1`     | Returns `400` (invalid ID format)    |
+| GET    | `/tasks/1a`     | Returns `400` (invalid ID format)    |
+| GET    | `/tasks/2.5`    | Returns `400` (invalid ID format)    |
+| GET    | `/tasks/999`    | Returns `404` (task not found)       |
+| GET    | `/tasks/999999` | Returns `404` (task not found)       |
 
 ---
 
-##  Example Test Commands
+## Example Test Commands
 
 ```bash
 curl http://localhost:3000/
 curl http://localhost:3000/health
 curl http://localhost:3000/tasks
-curl http://localhost:3000/task/1
-curl http://localhost:3000/task/abc     # should return 400
-curl http://localhost:3000/task/999     # should return 404
+curl http://localhost:3000/tasks/1
+curl http://localhost:3000/tasks/abc    # should return 400
+curl http://localhost:3000/tasks/-1     # should return 400
+curl http://localhost:3000/tasks/1a     # should return 400
+curl http://localhost:3000/tasks/2.5    # should return 400
+curl http://localhost:3000/tasks/999    # should return 404
+curl http://localhost:3000/tasks/999999 # should return 404
 ```
 
 ---
 
-##  Project Structure
+## Project Structure
 
 ```
 task-management/
@@ -92,19 +100,20 @@ task-management/
 │     └─ tasks.js
 ├─ package.json
 ├─ .gitignore
-├─ tasks-response.json
 ├─ api-responses.txt
 └─ README.md
 ```
 
 ---
 
-##  Notes
+## Notes
 
-* `createdAt` fields are stored in the code as `Date` objects.
+* All `createdAt` fields are stored as JavaScript `Date` objects.
 * When returned as JSON, they appear as ISO date strings.
-* This project uses CommonJS modules (`require` instead of `import`).
+* API uses CommonJS modules (`require`) instead of ES modules (`import`).
+* Error handling covers all edge cases as per Assignment 5 requirements.
+* API follows RESTful design principles.
 
----
+```
 
-
+```
