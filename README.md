@@ -1,110 +1,158 @@
-# Task Management API – CSE 362 Lab 01
 
-**Amlan Dutta Rahul**
 
-**Roll: 360**
+# Task Management API
 
-**Jahangirnagar University**
+A RESTful API for managing tasks built with Node.js and Express. This project demonstrates REST principles, error handling, and API development best practices.
 
-**Department of Computer Science and Engineering**
+## 🚀 Setup Instructions
 
-**3rd Year, 2nd Semester 2024**
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
 
-**CSE 362 – Web Programming II LAB**
+### Installation
 
-**Overview**
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd task-management
+````
 
-A simple REST API built with Node.js and Express for managing tasks.
-This project is part of **Assignment 7**, which requires creating a README containing project setup instructions and listing all available API endpoints.
+2. **Install dependencies**
 
----
+   ```bash
+   npm install
+   ```
 
-##  Requirements
+3. **Run the server**
 
-* Node.js (v18+ recommended)
-* npm (comes with Node)
-* Git (optional, for cloning)
+   ```bash
+   node src/index.js
+   ```
 
----
+4. **Verify server is running**
 
-##  Setup Instructions
+   ```
+   ✅ Server running at http://localhost:3000
+   ```
 
-Clone the repository (or download ZIP):
+## 🛠️ API Endpoints
 
-```bash
-git clone <your-repo-url>
-cd task-management
-```
+### Root Endpoint
 
-Install dependencies:
+* **GET /**
 
-```bash
-npm install
-```
+  * Returns: API status message
+  * Example: `Task Management API is running!`
 
-Start the server:
+### Health Check
 
-```bash
-npm start
-```
+* **GET /health**
 
-If successful, you should see:
+  * Returns: Server health status and uptime
+  * Response:
 
-```
-Server running at http://localhost:3000
-```
+    ```json
+    {
+      "status": "healthy",
+      "uptime": 45.128
+    }
+    ```
 
----
+### Tasks Management
 
-##  Available API Endpoints
+#### Get All Tasks
 
-| Method | Endpoint    | Description                          |
-| ------ | ----------- | ------------------------------------ |
-| GET    | `/`         | Returns welcome message              |
-| GET    | `/health`   | Returns API health status and uptime |
-| GET    | `/tasks`    | Returns list of all tasks            |
-| GET    | `/task/:id` | Returns a single task by ID          |
-| GET    | `/task/abc` | Returns `400` (invalid ID format)    |
-| GET    | `/task/999` | Returns `404` (task not found)       |
+* **GET /tasks**
 
----
+  * Returns: Array of all tasks
+  * Response:
 
-##  Example Test Commands
+    ```json
+    {
+      "success": true,
+      "data": [
+        {
+          "id": 1,
+          "title": "Learn Node.js",
+          "completed": false,
+          "priority": "high",
+          "createdAt": "2025-01-20T10:30:00.000Z"
+        }
+      ]
+    }
+    ```
 
-```bash
-curl http://localhost:3000/
-curl http://localhost:3000/health
-curl http://localhost:3000/tasks
-curl http://localhost:3000/task/1
-curl http://localhost:3000/task/abc     # should return 400
-curl http://localhost:3000/task/999     # should return 404
-```
+#### Get Task by ID
 
----
+* **GET /tasks/:id**
 
-##  Project Structure
+  * Parameters: `id` (integer)
+  * Success Response (200):
+
+    ```json
+    {
+      "success": true,
+      "data": {
+        "id": 1,
+        "title": "Learn Node.js",
+        "completed": false,
+        "priority": "high",
+        "createdAt": "2025-01-20T10:30:00.000Z"
+      }
+    }
+    ```
+  * Error Responses:
+
+    * 400: Invalid ID format
+    * 404: Task not found
+
+## 📁 Project Structure
 
 ```
 task-management/
-├─ src/
-│  ├─ index.js
-│  └─ routes/
-│     └─ tasks.js
-├─ package.json
-├─ .gitignore
-├─ tasks-response.json
-├─ api-responses.txt
-└─ README.md
+├── src/
+│   ├── index.js          # Main server file
+│   └── routes/
+│       └── tasks.js      # Task routes
+├── package.json          # Dependencies and scripts
+├── README.md             # Project documentation
+└── api-responses.txt     # API test responses
 ```
 
----
+## 🧪 Testing with Postman
 
-##  Notes
+1. **Start the server**: `node src/index.js`
+2. **Open Postman** and test the endpoints:
 
-* `createdAt` fields are stored in the code as `Date` objects.
-* When returned as JSON, they appear as ISO date strings.
-* This project uses CommonJS modules (`require` instead of `import`).
+   * GET `http://localhost:3000/tasks` - Get all tasks
+   * GET `http://localhost:3000/tasks/1` - Get task by ID
+   * GET `http://localhost:3000/health` - Health check
 
----
+### Test Cases for Error Handling:
 
+* Valid ID: `/tasks/1` → 200 OK
+* Non-existent ID: `/tasks/999` → 404 Not Found
+* Invalid ID: `/tasks/abc` → 400 Bad Request
+* Negative ID: `/tasks/-1` → 400 Bad Request
+
+## 📝 Features
+
+* ✅ RESTful API design
+* ✅ JSON request/response handling
+* ✅ Comprehensive error handling
+* ✅ In-memory data storage
+* ✅ Health check endpoint
+* ✅ Task CRUD operations (Create & Retrieve)
+* ✅ Input validation
+* ✅ Proper HTTP status codes
+
+## 🔧 Dependencies
+
+* express: ^4.18.0
+* Node.js built-in modules
+
+## 👨‍💻 Development
+
+This project was developed as part of CSE 362 Web Programming II Lab at Jahangirnagar University.
 
