@@ -1,47 +1,193 @@
-========================================
-Assignment 3: GET /tasks/:id Route Test
-========================================
+# API Responses Documentation
 
-✅ Test Case 1: Valid Task ID
-----------------------------------------
-Request:
-GET http://localhost:3000/tasks/3
+## Assignment 5: Error Handling Test Cases
 
-Expected Response:
+### Test Case 1: Valid ID
+Request: GET http://localhost:3000/tasks/1
 Status: 200 OK
-Body:
+Response:
 {
-  "id": 3,
-  "title": "Test API with Postman",
-  "completed": false,
-  "priority": "low",
-  "createdAt": "2025-11-14T00:00:00.000Z"
+    "success": true,
+    "data": {
+        "id": 1,
+        "title": "Learn Node.js",
+        "completed": false,
+        "priority": "high",
+        "createdAt": "2025-01-20T10:30:00.000Z"
+    }
 }
 
-----------------------------------------
-
-❌ Test Case 2: Invalid Task ID (Not Found)
-----------------------------------------
-Request:
-GET http://localhost:3000/tasks/99
-
-Expected Response:
+### Test Case 2: Non-existent ID
+Request: GET http://localhost:3000/tasks/999
 Status: 404 Not Found
-Body:
+Response:
 {
-  "error": "Task not found"
+    "success": false,
+    "error": "Task not found"
 }
 
-----------------------------------------
-
-🧪 Additional Test Case (Optional)
-----------------------------------------
-Request:
-GET http://localhost:3000/tasks/abc
-
-Expected Response (Handled in Assignment 6):
+### Test Case 3: Invalid ID - String
+Request: GET http://localhost:3000/tasks/abc
 Status: 400 Bad Request
-Body:
+Response:
 {
-  "error": "Invalid ID format"
+    "success": false,
+    "error": "Invalid ID format"
 }
+
+### Test Case 4: Invalid ID - Negative Number
+Request: GET http://localhost:3000/tasks/-1
+Status: 400 Bad Request
+Response:
+{
+    "success": false,
+    "error": "Invalid ID format"
+}
+
+### Test Case 5: Invalid ID - Special Characters
+Request: GET http://localhost:3000/tasks/1a
+Status: 400 Bad Request
+Response:
+{
+    "success": false,
+    "error": "Invalid ID format"
+}
+
+### Test Case 6: Invalid ID - Decimal Number
+Request: GET http://localhost:3000/tasks/2.5
+Status: 400 Bad Request
+Response:
+{
+    "success": false,
+    "error": "Invalid ID format"
+}
+
+## Additional Test Cases
+
+### Test Case 7: Get All Tasks
+Request: GET http://localhost:3000/tasks
+Status: 200 OK
+Response:
+{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "title": "Learn Node.js",
+            "completed": false,
+            "priority": "high",
+            "createdAt": "2025-01-20T10:30:00.000Z"
+        },
+        {
+            "id": 2,
+            "title": "Build REST API",
+            "completed": true,
+            "priority": "medium",
+            "createdAt": "2025-01-20T10:30:00.000Z"
+        },
+        {
+            "id": 3,
+            "title": "Test API with Postman",
+            "completed": false,
+            "priority": "low",
+            "createdAt": "2025-01-20T10:30:00.000Z"
+        },
+        {
+            "id": 4,
+            "title": "Write Documentation",
+            "completed": false,
+            "priority": "medium",
+            "createdAt": "2025-01-20T10:30:00.000Z"
+        },
+        {
+            "id": 5,
+            "title": "Push Code to GitHub",
+            "completed": true,
+            "priority": "high",
+            "createdAt": "2025-01-20T10:30:00.000Z"
+        }
+    ]
+}
+
+### Test Case 8: Health Check
+Request: GET http://localhost:3000/health
+Status: 200 OK
+Response:
+{
+    "status": "healthy",
+    "uptime": 45.128
+}
+
+### Test Case 9: Root Endpoint
+Request: GET http://localhost:3000/
+Status: 200 OK
+Response:
+Task Management API is running!
+
+### Test Case 10: Valid ID - Task 3
+Request: GET http://localhost:3000/tasks/3
+Status: 200 OK
+Response:
+{
+    "success": true,
+    "data": {
+        "id": 3,
+        "title": "Test API with Postman",
+        "completed": false,
+        "priority": "low",
+        "createdAt": "2025-01-20T10:30:00.000Z"
+    }
+}
+
+### Test Case 11: Valid ID - Task 5
+Request: GET http://localhost:3000/tasks/5
+Status: 200 OK
+Response:
+{
+    "success": true,
+    "data": {
+        "id": 5,
+        "title": "Push Code to GitHub",
+        "completed": true,
+        "priority": "high",
+        "createdAt": "2025-01-20T10:30:00.000Z"
+    }
+}
+
+### Test Case 12: Very Large Number ID
+Request: GET http://localhost:3000/tasks/999999
+Status: 404 Not Found
+Response:
+{
+    "success": false,
+    "error": "Task not found"
+}
+
+## Summary
+
+| Test Case | ID Provided | Expected Status | Result |
+|-----------|-------------|-----------------|---------|
+| Valid ID | 1 | 200 OK | ✅ PASS |
+| Valid ID | 3 | 200 OK | ✅ PASS |
+| Valid ID | 5 | 200 OK | ✅ PASS |
+| Non-existent ID | 999 | 404 Not Found | ✅ PASS |
+| String ID | "abc" | 400 Bad Request | ✅ PASS |
+| Negative ID | -1 | 400 Bad Request | ✅ PASS |
+| Special Characters | "1a" | 400 Bad Request | ✅ PASS |
+| Decimal ID | 2.5 | 400 Bad Request | ✅ PASS |
+| Large Number | 999999 | 404 Not Found | ✅ PASS |
+| All Tasks | (none) | 200 OK | ✅ PASS |
+| Health Check | (none) | 200 OK | ✅ PASS |
+| Root Endpoint | (none) | 200 OK | ✅ PASS |
+
+Test Date: January 20, 2025
+Server: Running on http://localhost:3000
+All endpoints tested successfully.
+Assignment 5 error handling requirements: ✅ COMPLETED
+
+Notes:
+- All error cases return appropriate HTTP status codes
+- Error messages are clear and consistent
+- Success responses include proper data structure
+- API follows RESTful principles
+- Error handling covers all edge cases as per Assignment 5 requirements

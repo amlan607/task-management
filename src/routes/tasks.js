@@ -45,16 +45,54 @@ router.get("/", (req, res) => {
   res.json(tasks);
 });
 
-// ✅ GET /tasks/:id → Return task by ID or 404 if not found
+// ✅ GET /tasks/:id → Return task by ID with enhanced error handling (Assignment 5)
 router.get("/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const task = tasks.find((t) => t.id === id);
+  try {
+    const id = parseInt(req.params.id);
+    
+    // Assignment 5: Error handling for invalid IDs
+    if (isNaN(id)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid ID format"
+      });
+    }
 
-  if (!task) {
-    return res.status(404).json({ error: "Task not found" });
+    // Check for negative IDs
+    if (id < 0) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid ID format"
+      });
+    }
+
+    // Check for non-integer IDs (if somehow parsed as float)
+    if (!Number.isInteger(id)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid ID format"
+      });
+    }
+
+    const task = tasks.find((t) => t.id === id);
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        error: "Task not found"
+      });
+    }
+
+    res.json({
+      success: true,
+      data: task
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: "Internal server error"
+    });
   }
-
-  res.json(task);
 });
 
 module.exports = router;
