@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
   res.send("Task Management API is running!");
 });
 
-// tasks route
+// tasks route - use the imported router
 app.use("/tasks", tasksRouter);
 
 app.listen(port, () => {

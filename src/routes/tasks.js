@@ -1,49 +1,40 @@
-// src/routes/tasks.js
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const db = require('../config/db');
 
-// generate 5 sample tasks
-const tasks = [
-  {
-    id: 1,
-    title: "Learn Node.js",
-    completed: false,
-    priority: "high",
-    createdAt: new Date()
-  },
-  {
-    id: 2,
-    title: "Build REST API",
-    completed: true,
-    priority: "medium",
-    createdAt: new Date()
-  },
-  {
-    id: 3,
-    title: "Test API with Postman",
-    completed: false,
-    priority: "low",
-    createdAt: new Date()
-  },
-  {
-    id: 4,
-    title: "Write Documentation",
-    completed: false,
-    priority: "medium",
-    createdAt: new Date()
-  },
-  {
-    id: 5,
-    title: "Push Code to GitHub",
-    completed: true,
-    priority: "high",
-    createdAt: new Date()
+// GET all tasks with pagination
+router.get('/', async (req, res) => {
+  try {
+    let page = parseInt(req.query.page) || 1;
+    let limit = parseInt(req.query.limit) || 10;
+
+    if (limit > 50) limit = 50;
+
+    const offset = (page - 1) * limit;
+
+    const [countResult] = await db.query('SELECT COUNT(*) AS total FROM tasks');
+    const totalTasks = countResult[0].total;
+
+    const [rows] = await db.query(
+      'SELECT * FROM tasks ORDER BY created_at DESC LIMIT ? OFFSET ?',
+      [limit, offset]
+    );
+
+    const totalPages = Math.ceil(totalTasks / limit);
+
+    res.json({
+      totalTasks,
+      totalPages,
+      currentPage: page,
+      limit,
+      data: rows,
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database error' });
   }
-];
-
-// GET /tasks
-router.get("/", (req, res) => {
-  res.json(tasks);
 });
+
 
 module.exports = router;
