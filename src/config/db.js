@@ -1,8 +1,8 @@
 const mysql = require('mysql2');
 const connection = mysql.createPool({
 host: 'localhost',
-user: 'taskuser',
-password: 'taskpass123',
+user: 'root',
+password: '4Fl129t61a',
 database: 'taskdb',
 waitForConnections: true,
 connectionLimit: 10,
