@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
+const logger = require('../config/logger');
 
 // Helper: validate positive integer id
 function parseId(val) {
@@ -48,7 +49,7 @@ router.get('/', async (req, res) => {
     });
 
   } catch (err) {
-    console.error(err);
+    logger.error('GET /tasks error', err);
     res.status(500).json({ error: 'Database error' });
   }
 });
@@ -83,7 +84,7 @@ router.get('/deleted', async (req, res) => {
     res.json({ totalTasks, totalPages, currentPage: page, limit, searchQuery: q, data: rows });
 
   } catch (err) {
-    console.error(err);
+    logger.error('GET /tasks/:id error', err);
     res.status(500).json({ error: 'Database error' });
   }
 });
@@ -99,7 +100,7 @@ router.get('/:id', async (req, res) => {
 
     res.json(rows[0]);
   } catch (err) {
-    console.error(err);
+    logger.error('GET /tasks/deleted error', err);
     res.status(500).json({ error: 'Database error' });
   }
 });
@@ -124,7 +125,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Unable to delete task' });
 
   } catch (err) {
-    console.error(err);
+    logger.error('DELETE /tasks/:id error', err);
     res.status(500).json({ error: 'Database error' });
   }
 });
@@ -146,7 +147,7 @@ router.put('/:id/restore', async (req, res) => {
     res.status(500).json({ error: 'Unable to restore task' });
 
   } catch (err) {
-    console.error(err);
+    logger.error('PUT /tasks/:id/restore error', err);
     res.status(500).json({ error: 'Database error' });
   }
 });
